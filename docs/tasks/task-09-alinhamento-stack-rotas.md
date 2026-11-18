@@ -1,6 +1,6 @@
 # Task 09 — alinhamento de stack e rotas
 
-Status: planejada
+Status: concluída — styled-components, /success e aviso sem pedido; 43 unitários, 8 E2E e build aprovados.
 
 Objetivo: usar styled-components na UI base, rota /success e feedback para confirmação inexistente conforme fonte completa.
 

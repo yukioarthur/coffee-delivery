@@ -12,16 +12,17 @@ export function App() {
 }
 
 function Store() {
-  const { add, totals } = useCart()
-  const { pathname } = useLocation()
+  const { add, totals, notify } = useCart()
+  const { pathname, state } = useLocation()
   const previousPath = useRef(pathname)
   useEffect(() => {
-    document.title = `${pathname === '/checkout' ? 'Seu pedido' : pathname === '/sucesso' ? 'Pedido confirmado' : 'Café no seu ritmo'} | Coffee Delivery`
+    document.title = `${pathname === '/checkout' ? 'Seu pedido' : pathname === '/success' ? 'Pedido confirmado' : 'Café no seu ritmo'} | Coffee Delivery`
     if (previousPath.current !== pathname) {
       window.scrollTo({ top: 0 })
       document.getElementById('main')?.focus({ preventScroll: true })
       previousPath.current = pathname
     }
   }, [pathname])
-  return <><a className="skip-link" href="#main">Pular para o conteúdo</a><Header count={totals.count} /><main id="main" className="main" tabIndex={-1}><Routes><Route path="/" element={<Home onAdd={add} />} /><Route path="/checkout" element={<Checkout />} /><Route path="/sucesso" element={<Success />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></main><Footer /></>
+  useEffect(() => { if (state?.noOrder) notify('Ainda não há um pedido confirmado nesta sessão. Escolha seus cafés para começar.') }, [state, notify])
+  return <><a className="skip-link" href="#main">Pular para o conteúdo</a><Header count={totals.count} /><main id="main" className="main" tabIndex={-1}><Routes><Route path="/" element={<Home onAdd={add} />} /><Route path="/checkout" element={<Checkout />} /><Route path="/success" element={<Success />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></main><Footer /></>
 }

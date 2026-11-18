@@ -1,13 +1,14 @@
 import { ArrowDown, ArrowUpRight, Coffee, PackageCheck, ShoppingBag, Timer, Truck } from 'lucide-react'
 import { CoffeeCard } from './CoffeeCard'
 import { coffees } from './mockData'
+import { AnchorButton } from '../../components/ui/Button'
 
 export function Home({ onAdd }: { onAdd: (id: string, quantity: number) => void }) {
   return <div className="container">
     <section className="hero" aria-labelledby="hero-heading"><div className="hero-copy"><span className="eyebrow">Sua pausa começa aqui</span>
       <h1 id="hero-heading">Um bom café.<br />Um dia <em>melhor.</em></h1>
       <p>Do primeiro gole à última ideia. Encontre o seu café favorito e deixe o resto com a gente.</p>
-      <a className="button hero-cta" href="#cafes">Escolher meu café <ArrowUpRight size={19} /></a>
+      <AnchorButton className="hero-cta" href="#cafes">Escolher meu café <ArrowUpRight size={19} /></AnchorButton>
       <div className="hero-note"><Coffee size={16} /><span>Feito com cuidado. Entregue com carinho.</span></div>
     </div>
     <div className="hero-art" aria-label="Expresso cremoso em uma xícara"><span className="art-overline">Pequenos rituais, grandes momentos.</span><div className="coffee-orbit" /><span className="art-stamp">UMA PAUSA<br /><b>bem feita.</b><Coffee size={18} /></span><img className="hero-cup" src={coffees[2].image} alt="Expresso cremoso visto de cima" width="400" height="400" fetchPriority="high" /><div className="art-bottom"><span>Intenso no sabor.<br /><strong>Leve no seu dia.</strong></span><ArrowDown size={22} /></div></div>

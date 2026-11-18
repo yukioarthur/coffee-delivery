@@ -59,7 +59,7 @@ test('compra completa, validação, persistência, responsividade e confirmaçã
   await capture(page, 'checkout-320-dark')
   await page.setViewportSize({ width: 390, height: 844 })
   await page.getByRole('button', { name: 'Confirmar pedido' }).click()
-  await expect(page).toHaveURL(/\/sucesso$/)
+  await expect(page).toHaveURL(/\/success$/)
   await expect(page.getByText('Rua das Flores, 321', { exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Carrinho com 0 itens' })).toBeVisible()
   await expect(page.locator('.receipt-total strong')).toHaveText(/36,20/)
@@ -97,8 +97,9 @@ test('home em tablet, mobile, 320px, dark persistente e teclado', async ({ page 
 })
 
 test('remove produtos e protege sucesso sem pedido', async ({ page }) => {
-  await page.goto('/sucesso')
+  await page.goto('/success')
   await expect(page).toHaveURL(/\/$/)
+  await expect(page.getByText('Ainda não há um pedido confirmado nesta sessão. Escolha seus cafés para começar.')).toBeVisible()
   await page.getByRole('button', { name: 'Adicionar Expresso Tradicional ao carrinho', exact: true }).click()
   await page.goto('/checkout')
   await page.getByRole('button', { name: 'Remover Expresso Tradicional', exact: true }).click()
@@ -111,7 +112,7 @@ test('JSON corrompido não derruba carrinho nem confirmação', async ({ page })
   await page.addInitScript(() => { localStorage.setItem('coffee:cart:v1', '{bad'); sessionStorage.setItem('coffee:last-order:v1', '{bad') })
   await page.goto('/checkout')
   await expect(page.getByRole('heading', { name: 'Seu carrinho está vazio.' })).toBeVisible()
-  await page.goto('/sucesso')
+  await page.goto('/success')
   await expect(page).toHaveURL(/\/$/)
 })
 
@@ -123,7 +124,7 @@ test('storage bloqueado mantém compra disponível e avisa a limitação', async
   await page.getByRole('link', { name: 'Carrinho com 1 item', exact: true }).click()
   await fillAddress(page)
   await page.getByRole('button', { name: 'Confirmar pedido' }).click()
-  await expect(page).toHaveURL(/\/sucesso$/)
+  await expect(page).toHaveURL(/\/success$/)
   await expect(page.getByText(/Seu navegador bloqueou o armazenamento da sessão/)).toBeVisible()
 })
 
@@ -175,5 +176,31 @@ test('falha de CEP permite endereço manual após tentativa; loading bloqueia CT
   await page.getByLabel('UF', { exact: true }).selectOption('SP')
   await page.getByRole('radio', { name: 'Dinheiro', exact: true }).check()
   await page.getByRole('button', { name: 'Confirmar pedido' }).click()
-  await expect(page).toHaveURL(/\/sucesso$/)
+  await expect(page).toHaveURL(/\/success$/)
+})
+
+test('alterar CEP cancela a consulta antiga e não sobrescreve o endereço novo', async ({ page }) => {
+  let release!: () => void
+  let finished!: () => void
+  const pending = new Promise<void>(resolve => { release = resolve })
+  const handled = new Promise<void>(resolve => { finished = resolve })
+  await page.route('https://viacep.com.br/ws/01001000/json/', async route => {
+    await pending
+    await route.fulfill({ json: { logradouro: 'Endereço antigo', bairro: 'Antigo', localidade: 'São Paulo', uf: 'SP' } })
+    finished()
+  })
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Adicionar Latte ao carrinho', exact: true }).click()
+  await page.goto('/checkout')
+  await page.getByLabel('CEP', { exact: true }).fill('01001000')
+  await page.getByLabel('CEP', { exact: true }).press('Tab')
+  await expect(page.getByText('Buscando endereço…', { exact: true })).toBeVisible()
+  const cancelled = page.waitForEvent('requestfailed', { predicate: request => request.url().includes('/01001000/') })
+  await page.getByLabel('CEP', { exact: true }).fill('01310100')
+  await cancelled
+  await page.getByLabel('CEP', { exact: true }).press('Tab')
+  await expect(page.getByLabel('Rua', { exact: true })).toHaveValue('Rua das Flores')
+  release()
+  await handled
+  await expect(page.getByLabel('Rua', { exact: true })).toHaveValue('Rua das Flores')
 })

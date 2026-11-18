@@ -47,7 +47,7 @@ export function Checkout() {
     const order = createOrder(finalAddress.data, items)
     const sessionSaved = saveOrder(order)
     dispatch({ type: 'CLEAR' })
-    navigate('/sucesso', { replace: true, state: { order, sessionSaved } })
+    navigate('/success', { replace: true, state: { order, sessionSaved } })
   }
   return <div className="container checkout-page"><Link className="back-link" to="/"><ArrowLeft size={15} /> Continuar escolhendo</Link>
     {items.length === 0 ? <EmptyCart /> : <><div className="page-heading"><span className="eyebrow">Falta pouco para a sua pausa</span><h1>Do seu jeito. No seu endereço.</h1><p>Confira seus cafés e conte para a gente onde entregar.</p></div><div className="checkout-layout">
