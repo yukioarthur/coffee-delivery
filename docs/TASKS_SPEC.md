@@ -8,7 +8,7 @@ Executar uma tarefa de implementação por vez. Specs canônicas: [PRD](01-prd.m
 - [x] 04 Checkout validado
 - [x] 05 Sucesso
 - [x] 06 Testes, revisão e evidências — 43 testes unitários, 8 E2E e build aprovados
-- [ ] 07 Documentação, Git e publicação
+- [x] 07 Documentação, Git e publicação — repositório e aplicação públicos
 - [x] 08 Consulta CEP obrigatória — escopo confirmado na página pública do Notion
 - [x] 09 Alinhamento styled-components, /success e aviso sem pedido
 

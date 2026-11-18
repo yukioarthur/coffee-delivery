@@ -1,6 +1,6 @@
 # Task 7 — entrega
 
-Status: planejada
+Status: concluída — GitHub público, deploy verificado e acesso público autorizado pelo usuário. Código, docs, screenshots e vídeo disponíveis.
 
 Escopo: Concluir README, registro IA, Git e publicação.
 

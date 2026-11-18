@@ -2,10 +2,10 @@
 
 Repositório criado e público: https://github.com/yukioarthur/coffee-delivery
 
-Aplicação reservada para publicação: https://coffee-delivery-artyu-spa.hollowbarge33.chatgpt.site
+Aplicação publicada: https://coffee-delivery-artyu-spa.hollowbarge33.chatgpt.site
 
-Estado de envio do código e deploy: em conclusão nesta sessão. Esta seção será atualizada após verificação das operações.
+Código enviado e branch main conferida no GitHub. Deploy retornou succeeded em 17/11/2026 (America/Sao_Paulo). Versão de aplicação validada: 43 testes unitários, 8 E2E e build aprovados. Arquivos de documentação podem receber commits posteriores sem alteração do bundle da aplicação.
 
-O Site é criado inicialmente com acesso restrito à conta do proprietário. Não presumir que o professor consegue acessar até conferir a audiência. A configuração Vercel/Netlify permite publicação equivalente a partir do mesmo repositório.
+Audiência: pública, liberada após autorização explícita do usuário nesta sessão. Qualquer pessoa com o link pode acessar a aplicação. O repositório GitHub também é público e contém código, documentação, screenshots e vídeo. A configuração Vercel/Netlify permite publicação equivalente a partir do mesmo repositório.
 
 Não foi enviado nada ao Blackboard. Data e apresentação dependem da orientação do professor.

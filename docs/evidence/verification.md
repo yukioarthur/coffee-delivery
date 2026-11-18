@@ -11,6 +11,7 @@
 | Falhas | JSON inválido, storage bloqueado, CEP inexistente/indisponível, consulta antiga cancelada |
 | Acessibilidade funcional | Primeiro erro focado, skip link via teclado, foco de navegação, labels e mensagens; temas persistentes |
 | npm audit --omit=dev | 0 vulnerabilidades reportadas nas dependências de produção |
+| Consulta real ViaCEP | CEP público de exemplo 01001-000 retornou Praça da Sé / Sé / São Paulo / SP; conectividade confirmada fora dos mocks |
 | npm audit completo | 5 avisos de severidade alta na cadeia de desenvolvimento ligada a picomatch/fdir/tinyglobby/Vite/Vitest; registro disponível oferecia picomatch 4.0.7, ainda no intervalo reportado. Não aplicado downgrade automático de ferramentas. Pendência de manutenção documentada. |
 
 Os testes de navegador são reproduzíveis e usam resposta ViaCEP fictícia interceptada. Eles não provam disponibilidade contínua do serviço externo nem validade postal de endereços inventados. Prints reais de Home/Checkout/Sucesso e Light/Dark estão nesta pasta; o vídeo corresponde ao primeiro teste de compra completa, sem montagem de telas fictícias.
