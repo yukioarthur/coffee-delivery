@@ -13,3 +13,5 @@ export const checkoutSchema = z.object({
   payment: z.enum(['credit', 'debit', 'cash'], { error: 'Escolha uma forma de pagamento.' }),
 })
 export type CheckoutData = z.infer<typeof checkoutSchema>
+export type DeliveryAddress = Omit<CheckoutData, 'payment'>
+export type PaymentMethod = CheckoutData['payment']

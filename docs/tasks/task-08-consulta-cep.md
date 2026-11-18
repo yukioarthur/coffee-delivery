@@ -1,6 +1,6 @@
 # Task 08 — consulta pública de CEP
 
-Status: em execução
+Status: concluída — 43 testes unitários e 7 E2E aprovados após consulta CEP.
 
 Objetivo: atender RF-08/RN-07/RN-08 identificados na consulta da página pública do Notion.
 
